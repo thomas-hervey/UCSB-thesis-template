@@ -1,6 +1,21 @@
 \chapter{Background} \label{ch:[chapter 2 label]}
 
-In this section, I discuss important background for setting the context of my research. This includes brief details about cognitive processes, like formulating information needs, resulting user search behaviors, and how a search system technically attempts to interpret user requests. To give an overview of the IR process, figure 1 depicts the components of a complete search system. The IR  process is both cognitively and technically complex, therefore I have summarized important steps for my research in figure 2. IR is a very large field and a deeper discussion is outside the scope of this proposal. However, I leverage many fundamental research techniques from the IR community, so I refer readers to comprehensive IR literature on user needs and interactions while searching \cite{White2016}, modern IR system architectures \cite{Baeza-Yates1999}, and IR data structures and algorithms including the vector space model and relevance feedback \cite{Buckley1985}.
+In this section, I discuss important background for setting the context of my research. This includes brief details about cognitive processes, like formulating information needs, resulting user search behaviors, and how a search system technically attempts to interpret user requests. To give an overview of the IR process, figure \ref{fig:Background_Complete_Search_System}. depicts the components of a complete search system. The IR  process is both cognitively and technically complex, therefore I have summarized important steps for my research in figure \ref{fig:Background_IR_Steps}. IR is a very large field and a deeper discussion is outside the scope of this proposal. However, I leverage many fundamental research techniques from the IR community, so I refer readers to comprehensive IR literature on user needs and interactions while searching \cite{White2016}, modern IR system architectures \cite{Baeza-Yates1999}, and IR data structures and algorithms including the vector space model and relevance feedback \cite{Buckley1985}.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{../figures/Background_Complete_Search_System.png}
+    \caption{This figure, borrowed from \cite{Manning2008}, depicts a complete search system. On the left side of the figure, documents are parsed an indexed to be retrieved. In the center, a user’s query is ingested and parsed. On the right, scoring parameters are used to compare a parsed query and indexed document representations. Documents are assigned a final composite score calculated by linearly combining similarity scores between documents and a query for multiple criteria. The output is a ranked list of results on a page typically called a search engine results page (SERP).}
+    \label{fig:Background_Complete_Search_System}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{../figures/Background_IR_Steps.png}
+    \caption{A simplified overview of the IR process with emphasis on steps important to this study. Dashed lines represent information transfers. Step 1: User formulates and issues a query based on GINs. Step 2: Search system compares document representations and a query interpretation and ranks documents by relevance. Step 3: Resulting documents are ordered, presented, and examined by the user. Users then select and explore results, refine their query, or abandon search. Step 4: A system is evaluated for effectiveness based on user relevance feedback and/or system relevance measures including \gls{precision}, \gls{recall}, \gls{MAP}, and \gls{NGDC}, among others.}
+    \label{fig:Background_IR_Steps}
+\end{figure}
 
 \section{Geographic Information Needs of Data Searchers}
 
