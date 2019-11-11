@@ -1,6 +1,9 @@
 \input{packages.tex}
 \input{macros.tex}
 
+\makeglossaries
+\input{glossary.tex}
+
 \input{front_matter.tex}
 
 \begin{document}
@@ -35,7 +38,11 @@
 
 \subimport*{Appendix/}{appendix}
 
+\printglossary
+\printglossary[type=\acronymtype]
+
 \bibliographystyle{plain}
 \bibliography{references}
+
 
 \end{document}
