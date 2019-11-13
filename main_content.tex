@@ -1,7 +1,8 @@
 \input{packages.tex}
 \input{macros.tex}
 
-\onehalfspacing
+\onehalfspacing % TODO: Remove for dissertation
+\let\footnote=\endnote % make footnotes endnotes; TODO: Remove for dissertation
 
 \makeglossaries
 \input{glossary.tex}
@@ -55,6 +56,8 @@
 
 \printglossary
 \printglossary[type=\acronymtype]
+
+\theendnotes
 
 \bibliographystyle{plain}
 \bibliography{references}
