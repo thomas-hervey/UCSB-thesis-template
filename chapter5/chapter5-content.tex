@@ -1,7 +1,6 @@
 \chapter{Research Design and Methods} \label{ch:[chapter 5 label]}
 
 \section{Overview}
-
 In this research proposal, I have discussed the problem of search abandonment. I have noted that abandonment is partially due to search systems providing irrelevant results. This is because these systems have a weak understanding and employment of relevance. Guided by my research question, I propose a five-study research design to address this problem and improve our understanding of relevance in GIR. The relationships between studies are illustrated in figure \ref{fig:Methods_Overview}. Specifically, these studies will
 
 \begin{enumerate}
@@ -19,17 +18,18 @@ In this research proposal, I have discussed the problem of search abandonment. I
     \label{fig:Methods_Overview}
 \end{figure}
 
-\section{Surveying the State of Search in Geospatial Data Portals}
+\section{Surveying the State of Search Capabilities in Geospatial Data Portals}
 
 \subsection{Study Question}
-
 The first step to reducing search abandonment to establish a baseline for search effectiveness. I am interested in understanding what facets users can control when they search and how search systems interpret and reason on user queries. By learning what portal users can do, I can identify gaps in their search systems. Therefore, my first research question is:
 \linebreak
 
 \emph{What is the state of faceted search and scoring/ranking functions on geospatial data portals?}
 
-\subsection{Methods}
+\subsection{Data}
+[TODO]*copy data over*
 
+\subsection{Methods}
 To answer this question, I will first survey the search facets of several commercial and academic portals including but not limited to Esri's OpenData, data.gov, census.gov, UCSB's Alexandria Digital Library, UCSB Library's new data portal, and Geoblacklight\footnote{\url{https://geoblacklight.org/}} enabled portals. I will record facets such as filtering by tags, drawing a region of interest on a map, or sorting alphabetically. Figure \ref{fig:Methods_OpenData} highlights the facets that a user controlled when searching and the ordered list of results.
 
 Most search systems on portals do not publish their scoring/ranking functions, but many rely on open source data portals like CKAN\footnote{\url{https://ckan.org/}} and search tools like Apache Lucene\footnote{\url{https://lucene.apache.org/}}. They often leverage simple ranking models built on \gls{tf_idf} (\acrshort{TF_IDF}). TF–IDF ranks a document highly when it has a large number of similar words to a user's query, but those words aren't common in other documents. I expect that these search systems will apply similar functions possibly with minor customizations. For each portal, I will attempt several different information seeking tasks as if I were a typical user. I will simulate searching for data using specific queries for specific tasks. For example, in one scenario, I will simulate that I am a citizen who wants to reappraise their house and needs to find GIS data on parcels (to understand my property boundaries and coverage). After executing a query like "parcels", I will record the top 10 results and iteratively adjust the query to see if results change. Query adjustments will include: addition and removal of non-geographic, geographic, thematic and temporal terms, rearranging of terms, and the introduction and removal of terms indicative of the concepts that I hypothesized as being important. For example, I will add and remove spatial granularity keywords like "county" and "state", and density expressions such as "dense" or "even". Since data sparsity is likely to be an issue on some portals, I will trace several specific datasets on each portal and see how query adjustments affect their ranking.
@@ -44,77 +44,148 @@ The expected outcomes of this study will be threefold. First, this study will pr
     \label{fig:Methods_OpenData}
 \end{figure}
 
-\section{Search Behavior, Refinement and User's Query Concepts on Esri’s Geospatial OpenData Portals}
+\section{Extracting Concepts from User Queries to Esri's Open Geospatial OpenData Portals}
+
+[TODO] *refactor into title*
+Search Behavior, Refinement and User's Query Concepts on Esri’s Geospatial OpenData Portals
+
 
 \subsection{Study Question}
-
 Surveying the state of search shows us what users can do. But what do they actually do? The next logical step is to study user search behavior. The most common approach is to analyze query logs. Query logs record system interactions. These interactions including query executions, search refinements, page clicks, navigation, downloads, dwell time, and search exits are proxies for search behavior. Ultimately, they suggest what users commonly do, what they’re asking for, where they get stuck, and what they did before they abandoned their search. Although relevance cannot be directly quantified from query logs, certain behaviors are commonly used as relevance proxies. Query phrases are particularly important. They are an articulation of an information need. Analyzing word and phrase usage is very important to understanding the topics and concepts that are relevant to user needs. In this study, in addition to describing general search behavior and refinement, I want to answer the question:
 \linebreak
 
 \emph{Which concepts do people use implicitly and explicitly when searching for geospatial data, and how do they relate to search behavior and search refinement?}
 
 \subsection{Data}
-
 In this study, I will use several related datasets. I will primarily analyze text query logs from popular portals–Esri’s OpenData sites. This dataset is provided by Esri’s DC R+D office who develops OpenData. It includes over 1.5 million unique query strings, over 1 million unique search refinements, and dozens of ancillary attributes for each query string including page depth (i.e., the number of SERP results clicked), search dwell time, percentage of search abandonment, and percentage of goal conversions (i.e., percentage of downloads) among others. I have pre-processed these data and indexed them a PostgreSQL\footnote{\url{https://www.postgresql.org/}} database for use in full-text analysis. Unfortunately, due to privacy restrictions on the Google Analytics\footnote{\url{https://analytics.google.com/analytics/web/}} platform where these data originated, I am unable to extract individual search sessions at scale which would include what a specific user searches, clicks, and downloads. Therefore, the dataset is comprised of aggregates and averages. However, in the near future, I should have access to a second dataset called ELB logs. These logs are session-like data that records user navigation, such as what result a user clicks on following a query. They will require coalescing to resemble search sessions. These data are critical because clicks will be the foundation for constructing relevance judgements (see studies 4 and 5). The last dataset contains geospatial documents, which are publicly available via on OpenData’s \gls{application_programming_interface} (\acrshort{API}). All datasets will be filtered to contain only English queries and documents that are to US-based OpenData sites as a way of controlling cultural and linguistic variation in behavior. These datasets combined will include the three components necessary for IR evaluation–queries, documents, and relevance judgements.
 
 \subsection{Methods}
-
 Analyzing query logs can take dozens of different natural language processing data mining approaches. I will follow several classical IR and GIR approaches. As discussed previously, once queries are properly parsed and annotated, classical analysis starts simple by analyzing the frequency, distribution, and covariance of query terms and query phrases. Then, domain-specific analysis attempts to identify patterns across queries, such as the frequency of specific geographic named entities, parts of speech distributions, and more. Typically syntactic analysis then gives way to semantic analysis. This includes identifying topics, sentiment, and identifying explicit and implicit concepts embedded in search queries. This is conducted using robust tools for topic modeling, latent semantic analysis, and word/document embedding into vector space. Lastly, behavioral inferences are made based on the relation between findings from syntactic and semantic analysis and how a user progresses through the search process. For example, a researcher may want to know which query terms and topics most often lead to high search abandonment and/or short dwell time.
 
 I am particularly interested in what explicit and implicit concepts users use in their queries. Therefore, I will attempt to enumerate these concepts and see how they relate to search behavior by observing two parts of my first dataset–text queries and behavior proxies (e.g, search dwell time). First, I will analyze query phrase and term usage across the entire corpus using NLP text processing techniques developed in \cite{Sanderson2007} \cite{Dittrich2015} \cite{Derungs2016} \cite{Gablasova2017} \cite{Hamzei2019b}. I will record typical IR descriptive statistics including: frequency and length of phrases, n-grams, and terms, frequency of parts of speech, and phrase dependencies. I will also attempt to model themes using the popular \gls{Latent_Dirichlet_Allocation} (\acrshort{LDA}) model and a short-text model called \gls{Dirichlet_Multinomial_Mixture} (\acrshort{GSDMM}). I will also describe general search behavior such as search trends (i.e., how OpenData usage has changed over time).
 
-Second, I will look for the same patterns within and between queries. To start, I will normalize and label query terms using the same NLP methods used on the corpus and look for interactions between spatial, temporal, and thematic terms. To do this, queries are typically converted into a \gls{bag_of_words} (\acrshort{BoW}) model where word order doesn't matter but term frequency does. Then, using the \gls{vector_space_model}, feature vectors are created for the query where each feature is a BoW unigram (query term). The vector space model allows for easy similarity comparison between words and queries by calculating the cosine similarity of features. Using the vector space model, I will look for similarities between query vectors and attempt to cluster queries thematically. Since search themes widely vary, I will use a second method for comparing thematic similarity between queries. I will use ConceptNet\footnote{\url{http://conceptnet.io/}}, a semantic network built on vocabularies like Wordnet\footnote{\url{https://wordnet.princeton.edu/}}, to expand queries and reinforce findings from the vector space model. There is debate about directly applying semantic networks, but I will assume that network distance and hierarchy levels are indicative of semantic distance (within a certain threshold). I have also considered applying a geo-ontology to classify query terms, but this is not certain. Once themes are modeled, I will attempt to see how they covary with geographic and spatial terms. To do this, I will geoparse and geocode queries to label place names, addresses, and spatial qualifiers (i.e., directions like “north”, relations like “inside”, topology like “next to”, etc.) based on pre-existing (e.g., Geonames) and custom-built databases and tools (e.g., OpenAddresses). Then, I will record if and how spatial and thematic terms covary.
+Second, I will look for the same patterns within and between queries. To start, I will normalize and label query terms using the same NLP methods used on the corpus and look for interactions between spatial, temporal, and thematic terms. To do this, queries are typically converted into a \gls{bag_of_words} (\acrshort{BoW}) model where word order doesn't matter but term frequency does. Then, using the \gls{vector_space_model}, feature vectors are created for the query where each feature is a BoW unigram (query term). The vector space model allows for easy similarity comparison between words and queries by calculating the cosine similarity of features. Using the vector space model, I will look for similarities between query vectors and attempt to cluster queries thematically. Since search themes widely vary, I will use a second method for comparing thematic similarity between queries. I will use ConceptNet\footnote{\url{http://conceptnet.io/}}, a semantic network built on vocabularies like Wordnet\footnote{\url{https://wordnet.princeton.edu/}}, to expand queries and reinforce findings from the vector space model. There is debate about directly applying semantic networks, but I will assume that network distance and hierarchy levels are indicative of semantic distance (within a certain threshold). I have also considered applying a geo-ontology to classify query terms, but this is not certain. Once themes are modeled, I will attempt to see how they covary with geographic and spatial terms. To do this, I will geoparse and geocode queries to label place names, addresses, and spatial qualifiers (i.e., directions like “north”, relations like “inside”, topology like “next to”, etc.) based on pre-existing (e.g., Geonames\footnote{\url{https://www.geonames.org/}}) and custom-built databases and tools (e.g., OpenAddresses\footnote{\url{https://openaddresses.io/}}). Then, I will record if and how spatial and thematic terms covary.
 
 Third, since query refinement is common and indicative that SERP results aren't relevant, I will analyze refinement patterns. Specifically I will look for query expansions, contractions, and reformulations. I will record if and how users spatially refine such as adding a zip code to an address (i.e., geocorrection) or changing place names (i.e., georeformulation), and how users thematically refine, once again using ConceptNet and a threshold to set theme limits.
 
 Fourth, based on findings from the previous three steps, I will see how query terms relate to search behavior, page progression, and abandonment. For each unique query in the corpus, there is a record for search depth, percent search exit (i.e., the rate that users leave a site after searching), search duration (i.e., the amount of time that a user spends examining results after a search), goal conversions (i.e., the rate of a goal being completed, such as downloading a dataset or making a call to the OpenData API). 
 
-Throughout these steps, I will record the types and frequencies of explicit and implicit concepts embedded in user queries. After manually annotating these concepts for a subset of the data, I will look to see if and how they change based on the variations previously discussed (e.g., by query length, with specific query terms, after query refinement, etc.). I acknowledge that concepts can be anything and everything. I am specifically interested thematic (explicit) and latent (implicit) that could be deduced by a human reading query text. For example, the query "2008 population density by congressional district" has several explicit and implicit concepts. The explicit concepts are a timeframe (i.e., "2008"), and specific spatial unit type (i.e., the administrative unit "congressional district"). Implicit concepts give context to the themes in a query. The implicit concepts are temporal granularity (i.e., a specific year), spatial granularity (i.e., an administrative unit), and spatial configuration (i.e., density). These concepts are not pre-determined and will be expectantly debated. I believe that implicit concepts frequently found in queries that proceed search abandonment are likely neglected by the system. They should be recognized as valuable and will be incorporated into relevance ranking (see study 4).
+Throughout these steps, I will record the types and frequencies of explicit and implicit concepts embedded in user queries. After manually annotating these concepts for a subset of the data, I will look to see if and how they change based on the variations previously discussed (e.g., by query length, with specific query terms, after query refinement, etc.). I acknowledge that concepts can be anything and everything. I am specifically interested thematic (explicit) and latent (implicit) that could be deduced by a human reading query text. For example, the query "2008 population density by congressional district" has several explicit and implicit concepts. The explicit concepts are a time frame (i.e., "2008"), and specific spatial unit type (i.e., the administrative unit "congressional district"). Implicit concepts give context to the themes in a query. The implicit concepts are temporal granularity (i.e., a specific year), spatial granularity (i.e., an administrative unit), and spatial configuration (i.e., density). These concepts are not pre-determined and will be expectantly debated. I believe that implicit concepts frequently found in queries that proceed search abandonment are likely neglected by the system. They should be recognized as valuable and will be incorporated into relevance ranking (see study 4).
 
 \subsection{Expected Outcome}
 The expected outcome of this study will be fourfold including 
 \begin{enumerate}
     \item a qualitative and quantitative description of general search patterns on Esri OpenData portals,
     \item a quantitative description of query and term frequency, query themes and geographic and spatial term usage,
-    \item a quantitative description of the types and frequencies of query refinements and geo-refinements and how they relate to general search behaivor,
+    \item a quantitative description of the types and frequencies of query refinements and geo-refinements and how they relate to general search behavior,
     \item and a qualitative description and list of the concepts searchers use that may be indicative of what they consider relevant to their search.
 \end{enumerate}
 
 The majority of my current research is invested in this study. I have considered that this study may require being broken down into several smaller studies.
 
 \section{Impacts of Location on Search Behavior in Search of Geographic  Datasets}
+
 \subsection{Study Question}
+This study mirrors the previous study but adds a location dimension. Previous work on map-based search suggests that the locations of users and the things and places they search for influence the themes that are searched \cite{Xiao2010}. Since the Esri OpenData portals are location specific, they’re each about a specific place. For example, the Michigan OpenData portal is administered by the state of Michigan and datasets roughly cover the state’s footprint. So, user queries to the Michigan OpenData portal will only return datasets managed by that portal. In other words, users have local intent and portals are about a limited geography. Therefore, I want to answer the question:
+\linebreak
+
+\emph{How does local intent affect search behavior and concepts analyzed in study two?}
+\linebreak
+
 \subsection{Data}
+I will use the same datasets from study two with the addition of separating queries and datasets by OpenData portal (a specific municipality-run portal). Public OpenData datasets are accessible via a public API. Portals are at varying spatial granularity, but most are at the city level. For example, in the metadata for the Washington D.C. OpenData portal is a location represented as a bounding box.
+
 \subsection{Methods}
+In order to answer this question, I will examine 1000 queries issued to 50 different OpenData portals. Queries and portals will be selected using stratified random sampling to ensure diversity of portal popularity and spatial granularity. Once the queries are selected, they will be split into two groups–those that ended in success (i.e., a user downloaded a dataset) and those that ended in failure. Analysis with be conducted within group because it is difficult to compare behavior between the two. Unsuccessful search sessions are often muddier because users typically refine more and use different strategies to find relevant results.
+
+Once the groups are formed, I will compare the results from study two between portals. Additionally, I will record differences between portals including 1) if and how georeferenced query terms, such as place names and addresses, vary in frequency and distance from a portal, and 2) if any of the results from study two differ with portal popularity and spatial granularity. I expect that theme will vary by portal but implicit concepts, especially implicit geographic concepts, will not. Depending on initial impressions of differences between sites, if differences appear large, I will test for statistical significance.
+
 \subsection{Expected Outcome}
+This is the shortest of the five studies. The result will be a quantitative description of how user search behavior and concepts, calculated in the second study, differ across selected OpenData portals. Additionally, with information about portal locations, I can calculate how spatial relations differ between portals. The result will also include a test for correlation between the extent size of portals and the average distance of georeferenced query terms, portal popularity, and goal conversions. Further relationships may appear depending on the richness of the initial results.
 
-\section{An Experimental Study on the Effectiveness of Introducing Relevance Criteria in Geographic Information Retrieval}
+\section{An Experimental Study on the Effectiveness of Introducing Concept-Based Relevance Criteria in Geographic Information Retrieval}
+
 \subsection{Study Question}
+With a better understanding of how users search and the concepts they use, the next step is to apply this knowledge to improve existing systems. Based on the results from studies two and three, I should have a list of concepts that users use when searching. These concepts may be indicative of relevant results and may be useful to include in the GIR ranking process. Therefore, I will attempt to answer the question:
+\linebreak
+
+\emph{In what ways can indexing and ranking methods in GIR capture a richer notion of relevance?}
+\linebreak
+
+Note that until this point, my methods have not discussed relevance, what impacts it, and its relationship to usefulness and user satisfaction. This is because 1) I wanted to look at search behavior purely based on what and how users query \underline{and} because I don't yet have a relevance baseline to compare to. In the next study, I will discuss creating a test collection based on ELB logs mentioned in study two.
+
 \subsection{Data}
+This study does not require a specific dataset, only a system to experiment on and some sample datasets to index and reason on, which I gathered in study three. I do not yet have access to the back end of OpenData portals, but I expect to soon. I currently have access to the ranking function that Esri uses to rank dataset results on their OpenData portals. Esri uses the Elasticsearch platform for search on OpenData portals. Their ranking algorithm is somewhat typical. It linearly combines several Elasticsearch default criteria with several custom criteria. Ranking relies on TF-IDF, it is heavily keyword-based. 
+
 \subsection{Methods}
+
+To answer this question, I will modify an existing GIR pipeline and see if the SERP results become more relevant. Typically this incremental process is called tuning. Specifically, I will clone one existing OpenData portal and its data. Then, I will test if incorporating the findings from the second and third study into the portal's ranking algorithm improves results. Incorporating findings means that the GIR pipeline will ingest and reason on new criteria for ranking. These criteria are meant to capture relevance as best as possible. My approach is experimental and for the moment, improvements will be anecdotal. Several tools that will help guide modifications including Elasticsearch's similarity computation module\footnote{\url{https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-similarity.html}} and  ranking evaluation API\footnote{\url{https://www.elastic.co/guide/en/elasticsearch/reference/current/search-rank-eval.html}}.
+
+Modifications to the pipeline will focus primarily on incorporating the \emph{concepts} that users use. Typically, modifications like this is called feature engineering in both hand tuning and machine learning approaches to ranking. Feature engineering is where an attribute of a dataset, such as a metadata attribute, is indexed and then reasoned on in a ranking model. A newly created feature can be thought of as ranking criteria that attempts to capture a dimension of relevance. For example, one potential feature apparent from my preliminary exploration of search queries is spatial granularity. To create a feature for spatial granularity, datasets will be compared for spatial granularity similarity with curated administrative datasets such as the US-wide block group, census tract, county, and state Census TIGER/Line shapefiles. If a dataset has a spatial granularity at the county level, an indexed attribute will created for the dataset and assigned a value of 3 based on county’s hierarchical position in the Getty Thesaurus of Geographic Names. Spatial granularity of the dataset can then be reasoned on.
+
+Modifications to the ranking function will start out simple as a linear combination of existing features with one or two new features. However, there will likely be other important concepts to reason on such as the ones in my hypothesis. Since there are no exact rules on how to create features, I will likely have to manually generate features and classes for their values. This is a typical process of tuning a ranking algorithm. Once a feature attribute is indexed, it can be reasoned on as criteria during ranking. These criteria can be weighted, boosted, and then combined with other criteria like keyword similarity.
+
+Note that these methods are rapidly developing. Hand tuning is difficult, but at the moment, I do not plan to use any complex models for improving ranking. This is because I do not yet know how dramatically feature engineering will change ranking. More complex models, such as the \gls{learn_to_rank} (which uses \gls{support_vector_machines} to predict ranking) require a more mature understanding of the effects of tuning. Also, I will also not yet use language models for feature engineering, which reverse engineer queries based on document details (suggesting what criteria can be used for reasoning).
+
 \subsection{Expected Outcome}
+The expected outcome of this study is twofold including
+\begin{enumerate}
+    \item a new indexing pipeline for OpenData datasets (and potentially specific embedded data features), and 
+    \item an expanded ranking algorithm that incorporates new criteria created through feature engineering
+\end{enumerate}
 
-\section{Evaluating the Effectiveness of a Geographically-Oriented Search Rank Algorithm}
+Since result improvements will be based on anecdotal evidence, it is likely that both of these outcomes could widely vary based on my domain knowledge. However, in the next study, these outcomes will be methodically testing using standard evaluation methods.
+
+\section{Evaluating the Effectiveness of a 
+[TODO]*fix title*
+Search Rank Algorithm}
+
 \subsection{Study Question}
+To test the effectiveness of modifications made in study four, they will be subject to evaluation. I will attempt to answer the question
+\linebreak
+
+\emph{In what ways will adding the proposed relevance criteria to ranking methods improve ranking of geographic datasets?}
+\linebreak
+
 \subsection{Data}
+This framework will be comprised of at least two and possibly three evaluation methods highlighted in figure \ref{fig:Methods_Evaluation}. First, I will create a custom-built test collection. This test collection will be constructed using the ELB logs and will comprise queries-document-relevance judgement triples. Note that this test collection may be made in a prior study for prior analysis. Second, I will gather data on user-based evaluations from A/B testing and click through data. These data will show how user clicks (i.e., which SERP results they click and/or download) differ between two systems, a control system and a modified system. See the methods second for how I will collect and use these data.
+
 \subsection{Methods}
 
 
 
-Goal conversions will be used as a proxy for relevance judgements. Note that I make an important assumption. Since I do not have relevance judgements (the typical third component of query–document–relevance judgement in a test collection) nor will I manually annotate relevance judgements, I will use proxies as relevance judgements.
+--- scratch
+
+Second, I will conduct a system-based valuation using the custom test collection.
+
+ The ELB logs record all requests made to the OpenData servers, passing through the Elasticsearch engine. Therefore, I will be able to recreate (somewhat superficial) sessions that are breadcrumbs of a user's search progression. A typical progression will probably resemble \emph{query}, \emph{click SERP result}, \emph{return to SERP}, \emph{click second result}, \emph{download result or exit search}. Explicit relevance judgements are difficult and costly to acquire. They require experts manually annotating the relevance of each SERP result for a set of queries. Instead, I will calculate \emph{implicit} relevance judgements
+
+Since this framework will also leverage user-based evaluation (from A/B testing and click through data), I will record the differences between 
+
+
+ I expect that there will be several improvements to the ranking process. The first is that precision and recall will increase. I also expect that normalized discounted cumulative gain (NDCG), a popular metric for top result ranking quality, will significantly improve since Esri’s OpenData ranking of the top 10 results is currently heavily keyword based. To measure this, I will 1) compare evaluation metrics (i.e., precision, recall, NGDC) before and after ranking adjustments, and (time permitting) 2) compare search behavior before and after adjustments. I will use abandonment (i.e., exit rate), depth, and goal conversions as indicators for a successful or unsuccessful search session. Note, these events (exit rate, depth, goal conversion) are only proxies for relevance, but are used widely in the literature. *Using Esri’s existing Hub platform and with the assistance of Dan Montello, I design a modified OpenData portal to record user behavior and survey users to ask what they were searching for and how the results between the two systems compare.
+
+
+Fourth, with knowledge gained from studies two and three, I should have a list of characteristics that are relevant to users searching for geographic datasets and how the characteristics change with locale. This list will be supported by the patterns in search behavior. I will attempt to answer the question: in what ways can ranking methods capture a richer notion of relevance? To answer this question, I will experiment creating criteria for measuring relevance of these characteristics. These criteria will be used in a new combinatory ranking function that will ultimately be added to the existing ranking function used by Esri’s OpenData portals.
+
+
+- mean reciprocal rank (MRR)s
+
+
+
+Goal conversions will be used as a proxy for relevance judgements. Note that I make an important assumption. Since I do not have relevance judgements (the typical third component of query–document–relevance judgement in a test collecti
+
+on) nor will I manually annotate relevance judgements, I will use proxies as relevance judgements.
 
 A download will mean that the document downloaded is relevant and that the search session is successful. Alternatively, search exits will mean that the datasets are not relevant. For example, if a query is issued with no refinements and results in a downloaded dataset, this can be considered a successful search session. If a user refines their search multiple times and doesn’t download a dataset, this is an example of an unsuccessful session. I will separate and compare the results between successful and unsuccessful sessions. As mentioned previously, this method will be used for creating relevance judgements until I have access to the ELB logs.
 
-Results will be more meaningful once I curate the ELB logs because it more closely resembles search sessions where a user executes a query, clicks on certain results, and ultimately downloads a dataset or abandons the session. In this case, clicks will be used in conjunction with goal conversions to create relevance judgements. Clicks are highly variable and literature suggests that a click does not mean that a result is relevant. However, a click, particularly if it isn’t to the top result, indicates preference and that the result is relatively more valuable than the top result. Therefore, clicks can be used in a probabilistic model for calculating relevance scores. Furthermore, clicks can be combined with more concrete relevance proxies, such as goal conversions discussed earlier. It is likely that this method for determining relevance judgements will be improved before this study is complete. Ultimately, the ELB logs will be used to create a test collection of query¬–document–relevance judgement triples. In theory, this test collection, were it to be made public, would be useful for future GIR evaluations.
-
-
-Figure \ref{fig:Methods_Evaluation}
+Results will be more meaningful once I curate the ELB logs because it more closely resembles search sessions where a user executes a query, clicks on certain results, and ultimately downloads a dataset or abandons the session. In this case, clicks will be used in conjunction with goal conversions to create relevance judgements. Clicks are highly variable and literature suggests that a click does not mean that a result is relevant. However, a click, particularly if it isn’t to the top result, indicates preference and that the result is relatively more valuable than the top result. Therefore, clicks can be used in a probabilistic model for calculating relevance scores. Furthermore, clicks can be combined with more concrete relevance proxies, such as goal conversions discussed earlier. It is likely that this method for determining relevance judgements will be improved before this study is complete. Ultimately, the ELB logs will be used to create a test collection of query–document–relevance judgement triples. In theory, this test collection, were it to be made public, would be useful for future GIR evaluations.
 
 \subsection{Expected Outcome}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../figures/Methods_Evaluation.png}
-    \caption{Classification of IR evaluation approaches adapted from \cite{Samimi2014}. Yellow highlights indicate the evaluation approaches used in this study. A test collection comprises a query, document, and relevance judgement for each query-document pair. A/B testing assigns users to either an A (control) or B (modified) search system and compares their behavior. I will also add an option for self-reported relevance on each SERP result. Click-through data, parsed from query logs in study 2, will be used to cross-reference A/B testing results.}
+    \caption{Classification of IR evaluation approaches adapted from \cite{Samimi2014}. Yellow highlights indicate the evaluation approaches used in this study. A test collection comprises a query, document, and relevance judgement for each query-document and compares their behavior. I will also add an option for self-reported relevance on each SERP result. Click-through data, parsed from query logs in study 2, will be used to cross-reference A/B testing results.}
     \label{fig:Methods_Evaluation}
 \end{figure}
