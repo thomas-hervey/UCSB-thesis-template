@@ -1,6 +1,6 @@
 \chapter{Previous Work} \label{ch:[chapter 4 label]}
 
-Although small, the GIR community has produced exceptional work on interdisciplinary topics like spatial cognition, spatial language, place models, geospatial semantics and geography usage in search as well as GIR sub-topics like geospatial information needs, \gls{geoprocessing}, \gls{gazetteer} construction, location-based IR, spatial representations of data, and discovery and exploration of \gls{georeference}d data. These topics are interdependent because they each effect a step in the procedural GIR process. This research proposal leverages previous work on several of these topics including geography usage in search, spatial representations of data, and discovery and exploration of georeferenced data. These are the topics that I discuss in addition to the ones in the background section. Note that while the following work has been influential in sculpting my research question and methods for answering it, to the best of my knowledge, there has not been significant work on my topic–relevance in the context of search for geospatial data. For sake of brevity, I not discuss the historical developments of these topics nor will I discuss specific research approaches. Instead, I will discuss the broad developments of each topic and the relationships between them.
+Although small, the GIR community has produced exceptional work on interdisciplinary topics like spatial cognition, spatial language, place models, geospatial semantics and geography usage in search as well as GIR sub-topics like geospatial information needs, \gls{geoparser}, \gls{gazetteer} construction, location-based IR, spatial representations of data, and discovery and exploration of \gls{georeference}d data. These topics are interdependent because they each effect a step in the procedural GIR process. This research proposal leverages previous work on several of these topics including geography usage in search, spatial representations of data, and discovery and exploration of georeferenced data. These are the topics that I discuss in addition to the ones in the background section. Note that while the following work has been influential in sculpting my research question and methods for answering it, to the best of my knowledge, there has not been significant work on my topic–relevance in the context of search for geospatial data. For sake of brevity, I not discuss the historical developments of these topics nor will I discuss specific research approaches. Instead, I will discuss the broad developments of each topic and the relationships between them.
 
 I will focus on broad developments and impactful findings. I am targeting work that focuses on the three topics in my background section.
 
@@ -82,3 +82,45 @@ representing geographical knowledge
 
 
 creating a corpus for geospatial natural language \cite{Stock2013}
+
+
+Learn to rank using genetic programming \cite{Yeh2017}
+
+Iterations of GIR systems have been built to that better manage geospatial semantics \cite{Jones2004} \cite{Jones2002}, heterogeneous data sources\cite{Hu2007}, and fuzzy query and document representations \cite{Bordogna2012}.
+
+Improvements in syntax parsing, such as geocorrection (fixxing mispellings) \cite{Alsubaiee2009}, fuzzy matching spatial keywords \cite{Zhang2017}, 
+
+Spatial similarity functions compared and logistic regression performs significantly better than non-probabilistic models \cite{Frontiera2008}
+
+Crowdsourcing method for building geo-corpora of short texts \cite{Wallgrun2017}
+
+Spink and Jansen \cite{Spink2001} \cite{Spink2002} were the first to explore query logs and discover broad patterns in search behavior and others followed to observe longitudinal changes (which are often minimal) \cite{Wang2003}.
+
+\cite{Cole2011}
+
+
+Work on transitioning IR systems from text search to question-answering systems has recently taken off 
+
+Reasoning in search systems is rapidly becoming sophisticated. It is probable that interacting with an IR system will transition from text-based queries to vocal question-answering (Q/A). Handling spatial data in this environment will be hard, but thre is promise in recent work on linking GIS with web search \cite{Tezuka2006}, semantically organizing geospatial data for Q/A systems \cite{Mai2018} and geo-oriented Q/A voice assistants \cite{Lafia2019}.
+
+Explicit relevance feedback is expensive, but alternatives suffer from inaccuracy issues. Improvements on relevance feedback methods have been discussed such as asking for feedback on negative results \cite{Ma2014}, setting limits on how much feedback should be collected \cite{Losada2019}, constructing the query model from a subset of relevant documents, not all of them \cite{Raiber2019}.
+
+
+*mention how a system interprets relevance* 
+ Technically, to effectively retrieve relevant documents, a system uses a set of rules to compare the similarity between documents a query. There are different strategies to do this, but broadly speaking, documents and a query are converted to a representation and a model is chosen for comparing similarity, typically set-theoretic (comparing sets of words or phrases), algebraic (comparing vector or matrix scalar values), or probabilistic (probable inference of relevance).
+
+Recent work comparing evaluation measures suggest that online evaluations are better measures for search of heterogeneous (such as multimedia documents or OpenData datasets) \cite{Zhang2018} \cite{Chen2017}.
+
+*mention that I will follow typical offline and online evaluation approaches as in \cite{Zhang2018} and \cite{Chen2017}
+
+Computational model of geographic relevance that uses a combination of several geogrpahic criteria including co-location, clustering, direction, spatio-temporal proximity, and topicality \cite{DeSabbata2014}. 
+
+
+probabilistic model for computing geographic relevance \cite{DeSabbata2010}
+ 
+ 
+ \cite{DeSabbata2015} \cite{DeSabbata2012}
+
+
+relevance criteria including accuracy, tangibility, quality, and geographic proximity, among others \cite{Barry1998}.
+Reichenbacker and De Sabbata have extensively investigated what GR means in mobile and navigational context \cite{Reichenbacher2016}.
