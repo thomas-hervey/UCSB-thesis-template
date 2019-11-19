@@ -1,126 +1,29 @@
 \chapter{Previous Work} \label{ch:[chapter 4 label]}
 
-Although small, the GIR community has produced exceptional work on interdisciplinary topics like spatial cognition, spatial language, place models, geospatial semantics and geography usage in search as well as GIR sub-topics like geospatial information needs, \gls{geoparser}, \gls{gazetteer} construction, location-based IR, spatial representations of data, and discovery and exploration of \gls{georeference}d data. These topics are interdependent because they each effect a step in the procedural GIR process. This research proposal leverages previous work on several of these topics including geography usage in search, spatial representations of data, and discovery and exploration of georeferenced data. These are the topics that I discuss in addition to the ones in the background section. Note that while the following work has been influential in sculpting my research question and methods for answering it, to the best of my knowledge, there has not been significant work on my topic–relevance in the context of search for geospatial data. For sake of brevity, I not discuss the historical developments of these topics nor will I discuss specific research approaches. Instead, I will discuss the broad developments of each topic and the relationships between them.
+The GIR community regularly researches interdisciplinary topics like spatial cognition, spatial language, place models, geospatial semantics and geography usage in search as well as GIR sub-topics like geospatial information needs, \gls{geoparser}s, \gls{gazetteer} construction, location-based IR, spatial representations of data, and discovery and exploration of \gls{georeference}d data. These topics are often studied interdependently because each effects a step in the GIR processing pipeline. My research leverages previous work on several of these topics including usage of geography in search, spatial representations of data, and discovery and exploration of georeferenced data. For sake of brevity, I discuss the broad developments of these topics, those discussed in the background, and the relationships between them.
 
-I will focus on broad developments and impactful findings. I am targeting work that focuses on the three topics in my background section.
+% Note that while the following work has been influential in sculpting my research question and methods for answering it, to the best of my knowledge, there has not been significant work on my topic–user search concepts and relevance in the context of search for geospatial data.
 
-Analysis of query logs from both the Excite search engine an academic search engine suggest that most queries are short with few terms, they are not refined often, themes don't change too much over time, and term vocabulary follows \gls{Zipf_law} \cite{Spink2001} \cite{Spink2002} \cite{Wang2003} \cite{Han2014}. When queries are refined, terms are most likely to be added to, then changed, then subtracted. The number of result pages viewed and time spent searching vary heavily with search domain, but generally users don't spend much time or effort searching through results.
+Geographic information needs (GINs) are diverse but most are informational or transactional  \cite{Reichenbacher2011} \cite{DeSabbata2010} and depend on concepts like coverage, shape, and distance \cite{Henrich2007}. Qualitative studies have found that information needs appear differently based on user mental models, self-agency regarding technical skills, and searcher type (scattered, settling, or shrewd) \cite{Willson2014}. Cole develops a theory of information need that addresses social framing and evolution of needs and their use \cite{Cole2011}. Sutcliffe \emph{et al.} developed a comprehensive framework for constructing a cognitive model of search behavior. It included a process model of information searching and knowledge representation that support the information seeking process, and task supporting facilities for browsing (e.g., thesauri and concept maps), query formulation (e.g., query languages and query-by-example), and evaluation (e.g., results summary and relevance feedback) \cite{Sutcliffe1998}.
 
+% academic searchers were given interviews following a qualitative, semi-structured interview design % ...
+% mental model including a broadening, narrowing, or interlacing of search shape (conception of search process) % ...
+% ... searcher self-concept as a view of their agency in relation to technology comprising: self-efficacy, self- esteem, and stability % ...
+% searcher type: scattered (without a plan), settling (repetitious), and shrewd (adaptive)
+% ***  current approaches
 
+Analysis of query logs from both the Excite search engine an academic search engine suggest that most queries are short with few terms, infrequently refined, and term vocabulary follows \gls{Zipf_law} \cite{Spink2001} \cite{Spink2002} \cite{Wang2003} \cite{Han2014}. When queries are refined, terms are most likely to be added to, then changed, then subtracted. The number of result pages viewed and time spent searching vary heavily with search domain, but generally users don't spend much time or effort searching through results.  Geographic queries are distinct from non-geographic queries in several ways. They tend to have more terms, most are thematically about places and commerce, they're heavier with spatial and temporal terminology and prepositions, and they're mostly about getting to a place, but are also commonly about a place or about finding something at a place \cite{Sanderson2007} \cite{Kohler2003} \cite{Henrich2007}. Users prefer to search for data about cities more than counties or states \cite{Hamzei2019a}, but geographical preferences vary by location \cite{Jones2008a}. For example, "near" has different meanings depending on searcher and target locations. Searchers in Vermont are more likely to search for places in neighboring states than Californian searchers. Query topics also vary by distance \cite{Xiao2010}. Improvements in syntax parsing, such as geo-correction (fixing misspellings) \cite{Alsubaiee2009} ans fuzzy matching spatial keywords \cite{Zhang2017}, are common since searchers often make syntax mistakes in their queries.
 
-Geographic Information Needs ***
+Iterations of GIR systems have been built to that better manage geospatial semantics \cite{Jones2004} \cite{Jones2002}, heterogeneous data sources\cite{Hu2007}, and fuzzy query and document representations \cite{Bordogna2012}. Hamzei \emph{et al.} semantically encode \acrshort{Q/A} data about places and analyze frequency of place names, activity, and spatial relations to find that popular places, commerce, and containment relations are embedded within the most common human answers \cite{Hamzei2019b}. Work on NLP for geospatial language interpretation attempt to georeference vague places based on spatial assertions, and semantic signatures \cite{Guo2008} \cite{Liu2009} \cite{Li2012} \cite{Gao2017}. Ontologies have a useful role in geospatial query interpretation \cite{Mauro2017}, expansion \cite{Fu2005}, disambiguation \cite{Jones2003} and cognition-based similarity judgements \cite{Schwering2009}. The most similar ontology work to my proposed research is the development of a task-based ontology for GIR \cite{Wiegand2007}. However, in Weigland's work, existing ontologies are used without direct observation of search behavior.
 
-aspects of information needs: intention, coverage, shape, distance \cite{Henrich2007}
+Geographic relevance (GR) has been defined many times such as the "quality of an entity in geographic space or its representation in an information system" \cite{Reichenbacher2011}. There is also reasonable debate about how relevance is different and less important than usefulness and user satisfaction, but is influenced by them \cite{Mao2016}. Highly influential work by J. Raper suggests that GR "is a kind of [situational relevance] that arises when a user has spatio-temporally extended information needs requiring [geographic information]..." \cite{Raper2007} Raper continues to explain that situational relevance is the need for information that supports executing a task. This notion is in congruence with the epistemological view of relevance mentioned by Hjørland \cite{Hjorland2010}. Furthermore, there is a special cognitive aspect of geographic information. Since it conveys a spatio-temporal extent, geo-pheonomena can be assimilated in one's cognitive map, and communicating GI "conveys a sense of place and identity..." but requires a particular kind of space and time, such as walking (real) spaces or transit (network) spaces \cite{Raper2007}. Cai suggests that both Tobler's first law of geography and the duality of spatial cognition (mental imagery and image schemata) are vital to determining geographic relevance \cite{Cai2011}.
 
-Geographic Search Behavior ****
+% it involves objects representing reality necessitating enhanced engagement with the real world .
 
-develop a framework for constructing a cognitive model of search behavior including a process model of information searching and knowledge representations that support the process.
-\cite{Sutcliffe1998}
-they also discuss task supporitng facilities for browsing, query formulation and evaluation
+Reichenbacker and De Sabbata have extensively investigated the meaning of GR in mobile and navigational contexts \cite{Reichenbacher2016}. They proposed a modified probabilistic model for computing a geographic relevance score based on Okapi BM25 \cite{DeSabbata2010} and admit that their model is sensitive to small user context changes. De Sabbata enumerates GR criteria including spatio-temporal proximity, coverage, concurrency, and accuracy, among others, and develops a computational model for GR-based scoring \cite{DeSabbata2015} \cite{DeSabbata2014} \cite{DeSabbata2012}. These criteria overlap with Barry's IR relevance criteria including accuracy, tangibility, quality, and geographic proximity, among others \cite{Barry1998}.  Much of my second study is based off of these works.
 
-such as thesauri and concept maps for browsing, 
-boolean query languages and query-by-example for query formation
-results summary and relevace feedback for evaluation
+To effectively retrieve relevant documents, a system uses a set of rules to compare the similarity (and assumed relevance) between documents and a query. There are different strategies to do this, but broadly speaking, documents and a query are converted to an abstract representation, and a model is chosen for comparing similarity. Models are typically set-theoretic (comparing sets of words or phrases), algebraic (comparing vector or matrix scalar values), or probabilistic (probable inference of relevance). Much work on geographic relevance scoring focuses on improving spatial similarity computations including \cite{Larson2004}, \cite{Martins2005}, and \cite{Markowetz2005}). Most improvements are minor and attempt to create more detailed/realistic ways of constructing and comparing footprint geometries. Other work indicates benefits of using logistic regression for similarity computations over non-probabilistic models \cite{Frontiera2008} \cite{Jones2008}. Like in IR, GIR has experimented with \gls{learn_to_rank} methods like genetic programming \cite{Yeh2017}.
 
+To evaluate a GIR system, from the system-view, a test collection is needed. However, these are sparse. Researchers have created corpora collecting geospatial natural language \cite{Stock2013} and short geospatial texts \cite{Wallgrun2017}. Improvements on collecting relevance feedback have been suggested including asking for feedback on negative results \cite{Ma2014}, setting limits on how much feedback should be collected \cite{Losada2019}, and constructing a query model from a subset of relevant documents instead of all relevant documents \cite{Raiber2019}. Recent work comparing evaluation measures suggest that online evaluations are better measures for search of heterogeneous (such as multimedia documents or OpenData datasets) \cite{Zhang2018} \cite{Chen2017}.
 
-Geographic queries are distinct from non-geographic queries in several ways. They tend to have more terms, most are thematically about places and commerce, they're heavier with spatial and temporal terminology and prepositions, and they're mostly about getting to a place, but are also evenly about a place or about finding something at a place \cite{Sanderson2007} \cite{Kohler2003} \cite{Henrich2007}.
-
-Users prefer to search for cities more than counties or states \cite{Hamzei2019a}, but geographical preferences vary by location \cite{Jones2008a}. For example, "near" has different meanings depending on location and searchers in Vermont are more likely to search for places in neighboring states than Californian searchers. Query topics also vary by distance \cite{Xiao2010}.
-
-
-Relevance and Geographic Relevance****
-
-
-Geographic relevance has been defined many times.
-
-Some consider GR the "quality of an entity in geographic space or its representation in an information system," it involves objects representing reality necessitating enhanced engagement with the real world \cite{Reichenbacher2011}.
-
-The highly influential work by J. Raper suggests that GR "is a kind of [situational relevance] that arises when a user has spatio-temporally extended information needs requiring [geographic information]..." \cite{Raper2007} He goes on to explain that situational relevance is the need for information that supports executing a task. This notion is in congruence with the epistemological view of relevance. Furthermore, there is a special cognitive nature of geographic information. Geographic information conveys a spatio-temporal extent, geo-pheonomena can be assimilated in one's cognitive map, and communicating GI "conveys a sense of place and identity..." but requires a particular kind of space and time, such as walking (real) spaces or transit (network) spaces.
-
-
-Cai suggests that both Tobler's first law of geography and the duality of spatial cognition (mental imagery and image schemata) are vital to geographic relevance. \cite{Cai2011}
-
-
-
-Much geographic ranking work focuses on improving spatial similarity computations. (e.g., \cite{Larson2004} \cite{Martins2005}, \cite{Markowetz2005}). Most results are minor and focus on more realistic ways of comparing geometries.
-
-
-work on NLP for geospatial language in an attempt to geo-reference vague places based on spatial assertions, and semantic signatures
-\cite{Guo2008} \cite{Liu2009} \cite{Li2012} \cite{Gao2017}
-
-probabilistic methods have been used for locating and generating place footprints. \cite{Jones2008}
-
-Similar approaches are for GIR in general [such as?]
-
-Intense study on how relevance is different from but influences result usefulness and user satisfaction [more on this]
-\cite{Mao2016}
-
-
-\cite{Willson2014}
-academic searchers were given interviews following a qualitative, semi-structured interview design
-...
-mental model including a broadening, narrowing, or interlacing of search shape (conception of search process)
-...
-... searcher self-concept as a view of their agency in relation to technology comprising: self-efficacy, self- esteem, and stability
-...
-searcher type: scattered (without a plan), settling (repetitious), and shrewd (adaptive)
-
-***  current approaches
-
-
-
-Hamzei \emph{et al.} \cite{Hamzei2019b} semantically encode \acrshort{Q/A} data about places and analyze frequency of place names, activity, and spatial relations to find that popular places, commerce, and containment relations are embedded within the most common human answers.
-
-[mention geographical ontologies and then the shift to --->]
-
-The use of knowledge graph and word embeddings for representing geospatial data and answering geospatial questions is on the rise. For example, two recent papers \cite {Mai2019} \cite{Dassereto2019} from the 2019 AGILE conference introduce novel means for 
-
-geographical ontologies
-
-representing geographical knowledge 
-
-
-
-creating a corpus for geospatial natural language \cite{Stock2013}
-
-
-Learn to rank using genetic programming \cite{Yeh2017}
-
-Iterations of GIR systems have been built to that better manage geospatial semantics \cite{Jones2004} \cite{Jones2002}, heterogeneous data sources\cite{Hu2007}, and fuzzy query and document representations \cite{Bordogna2012}.
-
-Improvements in syntax parsing, such as geocorrection (fixxing mispellings) \cite{Alsubaiee2009}, fuzzy matching spatial keywords \cite{Zhang2017}, 
-
-Spatial similarity functions compared and logistic regression performs significantly better than non-probabilistic models \cite{Frontiera2008}
-
-Crowdsourcing method for building geo-corpora of short texts \cite{Wallgrun2017}
-
-Spink and Jansen \cite{Spink2001} \cite{Spink2002} were the first to explore query logs and discover broad patterns in search behavior and others followed to observe longitudinal changes (which are often minimal) \cite{Wang2003}.
-
-\cite{Cole2011}
-
-
-Work on transitioning IR systems from text search to question-answering systems has recently taken off 
-
-Reasoning in search systems is rapidly becoming sophisticated. It is probable that interacting with an IR system will transition from text-based queries to vocal question-answering (Q/A). Handling spatial data in this environment will be hard, but thre is promise in recent work on linking GIS with web search \cite{Tezuka2006}, semantically organizing geospatial data for Q/A systems \cite{Mai2018} and geo-oriented Q/A voice assistants \cite{Lafia2019}.
-
-Explicit relevance feedback is expensive, but alternatives suffer from inaccuracy issues. Improvements on relevance feedback methods have been discussed such as asking for feedback on negative results \cite{Ma2014}, setting limits on how much feedback should be collected \cite{Losada2019}, constructing the query model from a subset of relevant documents, not all of them \cite{Raiber2019}.
-
-
-*mention how a system interprets relevance* 
- Technically, to effectively retrieve relevant documents, a system uses a set of rules to compare the similarity between documents a query. There are different strategies to do this, but broadly speaking, documents and a query are converted to a representation and a model is chosen for comparing similarity, typically set-theoretic (comparing sets of words or phrases), algebraic (comparing vector or matrix scalar values), or probabilistic (probable inference of relevance).
-
-Recent work comparing evaluation measures suggest that online evaluations are better measures for search of heterogeneous (such as multimedia documents or OpenData datasets) \cite{Zhang2018} \cite{Chen2017}.
-
-*mention that I will follow typical offline and online evaluation approaches as in \cite{Zhang2018} and \cite{Chen2017}
-
-Computational model of geographic relevance that uses a combination of several geogrpahic criteria including co-location, clustering, direction, spatio-temporal proximity, and topicality \cite{DeSabbata2014}. 
-
-
-probabilistic model for computing geographic relevance \cite{DeSabbata2010}
- 
- 
- \cite{DeSabbata2015} \cite{DeSabbata2012}
-
-
-relevance criteria including accuracy, tangibility, quality, and geographic proximity, among others \cite{Barry1998}.
-Reichenbacker and De Sabbata have extensively investigated what GR means in mobile and navigational context \cite{Reichenbacher2016}.
+It is probable that GIR interaction will transition from text-based queries to vocal question-answering (Q/A). Handling spatial data in this environment will be hard, but there is recent work on linking GIS with web search \cite{Tezuka2006}, semantically organizing geospatial data for Q/A systems \cite{Mai2018}, and geo-oriented Q/A voice assistants \cite{Lafia2019}. Better representations of geospatial knowledge, not just data, is of great value to the GIR community. The use of knowledge graphs and word embeddings for representing geospatial data and answering geospatial questions is on the rise \cite{Mai2019} \cite{Dassereto2019}.
